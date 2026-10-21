@@ -15,7 +15,6 @@ const pool = new Pool({
     "postgresql://neondb_owner:npg_zHWvi4f6AerM@ep-morning-flower-az03g45n-pooler.c-3.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require",
 });
 
-
 const initDB = async () => {
   try {
     await pool.query(`
@@ -29,13 +28,13 @@ const initDB = async () => {
       created_at TIMESTAMP DEFAULT NOW(),
       updated_at TIMESTAMP DEFAULT NOW()
       )
-      `)
+      `);
 
-      console.log("Database connected successfully");
+    console.log("Database connected successfully");
   } catch (error) {
     console.log(error);
   }
-}
+};
 
 initDB();
 
@@ -45,28 +44,85 @@ app.get("/", (req: Request, res: Response) => {
   });
 });
 
-app.post("/", async (req: Request, res: Response) => {
-  const {name, email, password, age} = req.body;
+app.post("/api/users", async (req: Request, res: Response) => {
+  const { name, email, password, age } = req.body;
 
   try {
-      const result = await pool.query(`
+    const result = await pool.query(
+      `
     INSERT INTO users (name, email, password, age) VALUES($1,$2,$3,$4)
     RETURNING *
-    `,[name, email, password, age])
+    `,
+      [name, email, password, age],
+    );
 
     // console.log(result);
 
-  res.status(201).json({
-    message: "user created successfully",
-    data: result.rows[0]
-  })
-  } catch (error : any) {
-      res.status(500).json({
-    message: error.message,
-    error
-  })
+    res.status(201).json({
+      success: true,
+      message: "user created successfully",
+      data: result.rows[0],
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+      error,
+    });
   }
+});
 
+app.get("/api/users", async (req: Request, res: Response) => {
+  try {
+    const result = await pool.query(`
+      SELECT * FROM users
+      `);
+
+    res.status(200).json({
+      success: true,
+      message: "Users retrived successfully",
+      data: result.rows,
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+      error,
+    });
+  }
+});
+
+app.get("/api/users/:id", async (req: Request, res: Response) => {
+  const id = req.params.id;
+
+  try {
+    const result = await pool.query(
+      `
+      SELECT * FROM users WHERE id=$1
+      `,
+      [id],
+    );
+
+    if(result.rows.length === 0){
+          res.status(500).json({
+      success: false,
+      message: "User not found",
+      data: {},
+    });
+    }
+
+        res.status(200).json({
+      success: true,
+      message: "User retrived successfully",
+      data: result.rows[0],
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+      error,
+    });
+  }
 });
 
 app.listen(port, () => {
