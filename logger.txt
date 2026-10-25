@@ -54,3 +54,13 @@ Method --> GET | Time --> 1792920328654 | URL --> /favicon.ico
 Method --> GET | Time --> 1792920333457 | URL --> /
 Method --> POST | Time --> 1792922162163 | URL --> /api/users
 Method --> POST | Time --> 1792922165501 | URL --> /api/users
+Method --> GET | Time --> 1792929932977 | URL --> /
+Method --> GET | Time --> 1792929933118 | URL --> /favicon.ico
+Method --> GET | Time --> 1792929933775 | URL --> /
+Method --> GET | Time --> 1792929934032 | URL --> /
+Method --> GET | Time --> 1792929934224 | URL --> /
+Method --> GET | Time --> 1792929934409 | URL --> /
+Method --> GET | Time --> 1792929934796 | URL --> /
+Method --> GET | Time --> 1792929937266 | URL --> /
+Method --> GET | Time --> 1792929939190 | URL --> /
+Method --> GET | Time --> 1792933010109 | URL --> /
