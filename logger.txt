@@ -44,3 +44,8 @@ Method --> GET | Time --> 1792854795254 | URL --> /api/users
 Method --> GET | Time --> 1792854814272 | URL --> /api/users/
 Method --> GET | Time --> 1792854828652 | URL --> /api/users/
 Method --> POST | Time --> 1792863597326 | URL --> /api/auth/login
+Method --> POST | Time --> 1792918461564 | URL --> /api/auth/login
+Method --> POST | Time --> 1792918511144 | URL --> /api/auth/refresh-token
+Method --> POST | Time --> 1792918753777 | URL --> /api/auth/refresh-token
+Method --> POST | Time --> 1792919663856 | URL --> /api/auth/refresh-token
+Method --> POST | Time --> 1792919872789 | URL --> /api/auth/refresh-token
