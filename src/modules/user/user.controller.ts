@@ -1,6 +1,7 @@
 import type { Request, Response } from "express";
 import { pool } from "../../db";
 import { userService } from "./user.service";
+import sendResponse from "../../utility/sendResponse";
 
 
 const createUser = async (req: Request, res: Response) => {
@@ -11,17 +12,19 @@ const createUser = async (req: Request, res: Response) => {
 
     // console.log(result);
 
-    res.status(201).json({
+    sendResponse(res, {
+      statusCode: 201,
       success: true,
       message: "user created successfully",
       data: result.rows[0],
-    });
+    })
   } catch (error: any) {
-    res.status(500).json({
+      sendResponse(res, {
+      statusCode: 500,
       success: false,
       message: error.message,
       error,
-    });
+    })
   }
 }
 
